@@ -1,0 +1,16 @@
+<mat-drawer-container class="example-container" [hasBackdrop]="true">
+  <mat-drawer #drawer [mode]="'side'">I'm a drawer</mat-drawer>
+  <mat-drawer-content>
+    <div style="display: flex; align-content: center; width: 100%; background: purple; height: 60px;">
+      <div style="display: flex; align-items: center; justify-content: center;margin-left: 10px;">
+        <fa-stack size="lg" class="navIcon" (click)="drawer.toggle()">
+          <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+          <fa-icon [icon]="faBars" [inverse]="true" stackItemSize="1x"></fa-icon>
+        </fa-stack>
+
+        <img style="margin-left: 20px;" src="assets/img/Sleafy_logo_3000x.png" width="80px">
+      </div>
+    </div>
+  </mat-drawer-content>
+</mat-drawer-container>
+
