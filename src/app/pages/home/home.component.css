@@ -1,0 +1,15 @@
+.sideTab:hover {
+  background: #9eabb0;
+}
+
+.sideTabActual {
+  background: #6A757A;
+}
+
+.navIcon:hover {
+  color: black;
+}
+
+.navIcon {
+  color: green;
+}
