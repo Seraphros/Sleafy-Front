@@ -1,0 +1,201 @@
+<mat-drawer-container class="example-container" style="height: 100%; font-family: 'MyriadPro',sans-serif"
+                      [hasBackdrop]="false">
+  <mat-drawer #drawer [mode]="'side'" opened>
+    <div style="display: flex; flex-direction: column;">
+      <div style="margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center">
+        <img style="" src="assets/img/Sleafy_logo_3000x.png" width="100px">
+      </div>
+      <div class="navItemContainer">
+        <div style="display: flex; flex-direction: row; align-items: center">
+          <fa-icon class="navItemIcon" size="2x" [icon]="faDashboard"></fa-icon>
+          <div>
+            Dashboard
+          </div>
+        </div>
+        <div class="navItemSelectorActive">
+
+        </div>
+      </div>
+      <div class="navItemContainer" [routerLink]="['/espdeclaration']">
+        <div style="display: flex; flex-direction: row; align-items: center">
+          <fa-icon class="navItemIcon" size="2x" [icon]="faPlus"></fa-icon>
+          <div style="padding-right: 20px;">
+            Déclaration d'un ESP
+          </div>
+        </div>
+        <div class="navItemSelector">
+        </div>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content style="background: #ebebeb">
+    <div style="height: 100%; background: #ebebeb; padding: 20px;">
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; height: 60px;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <fa-stack size="lg" class="navIcon" (click)="drawer.toggle()">
+            <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+            <fa-icon [icon]="faBars" [inverse]="true" stackItemSize="1x"></fa-icon>
+          </fa-stack>
+          <div style="margin-left: 10px; font-size: 20px;">
+            Dashboard
+          </div>
+        </div>
+        <div style="margin-right: 30px; color: #595959; font-weight: 300;">
+          {{ date | date:'dd MMMM yyy, EEEE' : '' : 'fr-FR'}}
+        </div>
+      </div>
+      <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center">
+        <mat-button-toggle-group [(value)]="espChosenName" name="ESPs" aria-label="ESPs">
+          <mat-button-toggle *ngFor="let esp of ESPs" value="{{esp.name}}"
+                             (change)="switchESP($event)">{{esp.name}}</mat-button-toggle>
+        </mat-button-toggle-group>
+        <div>
+          <button mat-raised-button color="primary" style="border-top-right-radius: 0; border-bottom-right-radius: 0"
+                  (click)="changeCollapseAll(true);">Tout Déplier
+          </button>
+          <button mat-raised-button color="warn"
+                  style="background: brown; border-bottom-left-radius: 0; border-top-left-radius: 0;"
+                  (click)="changeCollapseAll(false);">Tout Replier
+          </button>
+        </div>
+      </div>
+      <div
+        style="margin-top: 20px; width: 100%; display: flex; justify-content: center; align-items: center; background: green; padding: 10px; border-radius: 10px; color: white;">
+        <fa-stack>
+          <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+          <fa-icon style="color: green" [icon]="faInfos" stackItemSize="1x"></fa-icon>
+        </fa-stack>
+        <div style="margin-left: 10px;">
+          Informations sur l'ESP :
+        </div>
+        <div style="margin-left: 25px; font-weight: bold;">
+          {{espChosenName}}
+        </div>
+      </div>
+
+      <mat-button-toggle-group [(value)]="filterChosen" style="margin-top: 20px;" name="Params" aria-label="Params">
+        <mat-button-toggle (change)="changeFilter()" *ngFor="let filter of filtersKey"
+                           value="{{filters[filter].name}}">{{filters[filter].name}} </mat-button-toggle>
+      </mat-button-toggle-group>
+
+      <div style="display: flex;flex-flow: wrap;">
+        <div class="card" style="width: 300px; min-width: 230px; margin-right: 20px;"
+             [ngClass]="isCardCollapsedOrNotDisplayed('values')"
+             (click)="expandTable['values']=!expandTable['values']">
+          <div class="card-title" style="justify-content: space-between">
+            <div style="display: flex; align-items: center;">
+              <fa-stack>
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon style="color: green" [icon]="faValue" stackItemSize="1x"></fa-icon>
+              </fa-stack>
+              <div style="margin-left: 5px;">
+                Valeurs Actuelles :
+              </div>
+            </div>
+            <div>
+              <fa-icon [icon]="faMinus" size="2x" *ngIf="expandTable['values']"></fa-icon>
+              <fa-icon [icon]="faPlus" size="2x" *ngIf="!expandTable['values']"></fa-icon>
+            </div>
+          </div>
+
+          <div
+            style="width: 100%; height: 100%; display: flex; flex-direction: column;">
+            <div
+              style="width: 100%; background: #227d1b; color: white; font-size: 20px; display: flex; padding: 5px; justify-content: center;">
+              Humidité :
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
+              {{espChosen.currentHumidity}}
+            </div>
+            <div
+              style="width: 100%; font-size: 20px; display: flex; background: #227d1b; color: white; padding: 5px; justify-content: center;">
+              Température :
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
+              {{espChosen.currentTemperature}}
+            </div>
+            <div
+              style="width: 100%; font-size: 20px; display: flex; background: #227d1b; color: white; padding: 5px; justify-content: center;">
+              Dernier Arrosage :
+            </div>
+            <div style="display: flex; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
+              {{espChosen.lastWatering}}
+            </div>
+          </div>
+        </div>
+        <div class="card" style="width: 210px; min-width: 210px; margin-right: 20px;"
+             [ngClass]="isCardCollapsedOrNotDisplayed('meteo')"
+             (click)="expandTable['meteo']=!expandTable['meteo']">
+          <div class="card-title" style="justify-content: space-between">
+            <div style="display: flex; align-items: center;">
+              <fa-stack>
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon style="color: green" [icon]="faValue" stackItemSize="1x"></fa-icon>
+              </fa-stack>
+              <div style="margin-left: 5px;">
+                Météo :
+              </div>
+            </div>
+            <div>
+              <fa-icon [icon]="faMinus" size="2x" *ngIf="expandTable['meteo']"></fa-icon>
+              <fa-icon [icon]="faPlus" size="2x" *ngIf="!expandTable['meteo']"></fa-icon>
+            </div>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <app-weather-component style="padding: 5px;"></app-weather-component>
+          </div>
+        </div>
+        <div class="card" style="width: 900px; min-width: 400px; margin-right: 20px;"
+             [ngClass]="isCardCollapsedOrNotDisplayed('humidity')"
+             (click)="expandTable['humidity']=!expandTable['humidity']">
+          <div class="card-title" style="justify-content: space-between">
+            <div style="display: flex; align-items: center;">
+
+              <fa-stack>
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon style="color: green" [icon]="faStats" stackItemSize="1x"></fa-icon>
+              </fa-stack>
+              <div style="margin-left: 5px;">
+                Graphique d'humidité :
+              </div>
+            </div>
+            <div>
+              <fa-icon [icon]="faMinus" size="2x" *ngIf="expandTable['humidity']"></fa-icon>
+              <fa-icon [icon]="faPlus" size="2x" *ngIf="!expandTable['humidity']"></fa-icon>
+            </div>
+          </div>
+          <div style="padding: 0 25px 25px;">
+            <canvas id="humidityChart">{{ humidityChart }}</canvas>
+          </div>
+        </div>
+        <div class="card" style="width: 900px; min-width: 500px;"
+             [ngClass]="isCardCollapsedOrNotDisplayed('temperature')"
+             (click)="expandTable['temperature']=!expandTable['temperature']">
+          <div class="card-title" style="justify-content: space-between">
+            <div style="display: flex; align-items: center;">
+              <fa-stack>
+                <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+                <fa-icon style="color: green" [icon]="faStats" stackItemSize="1x"></fa-icon>
+              </fa-stack>
+              <div style="margin-left: 5px;">
+                Graphique de température :
+              </div>
+            </div>
+            <div>
+              <fa-icon [icon]="faMinus" size="2x" *ngIf="expandTable['temperature']"></fa-icon>
+              <fa-icon [icon]="faPlus" size="2x" *ngIf="!expandTable['temperature']"></fa-icon>
+            </div>
+          </div>
+          <div style="padding: 0 25px 25px;">
+            <canvas id="temperatureChart">{{ temperatureChart }}</canvas>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+
+  </mat-drawer-content>
+</mat-drawer-container>
+
