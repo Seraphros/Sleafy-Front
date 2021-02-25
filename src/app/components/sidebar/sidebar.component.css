@@ -1,0 +1,16 @@
+.icon {
+  color: green;
+  margin-right: 10px;
+  size: 35px;
+
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.active{
+  background-color: green;
+}
+.referential {
+  height: 100%;
+}
