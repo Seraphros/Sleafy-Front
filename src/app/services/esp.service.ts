@@ -28,6 +28,6 @@ export class EspService {
   }
 
   public resetSecretKey(espId: number): Observable<any> {
-    return this.http.put( 'https://www.sleafy.fr/back/esp/' + espId + '/secret', null);
+    return this.http.put( 'https://www.sleafy.fr/back/esp/' + espId + '/reset', null);
   }
 }
