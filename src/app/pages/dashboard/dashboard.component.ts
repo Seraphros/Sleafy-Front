@@ -11,6 +11,9 @@ import {Chart} from 'chart.js';
 })
 export class DashboardComponent implements OnInit {
 
+  title = 'Dashboard';
+
+
   faBars = faBars;
   faCircle = faCircle;
   faDashboard = faTachometerAlt;
@@ -67,7 +70,7 @@ export class DashboardComponent implements OnInit {
     this.filtersKey = Object.keys(this.filters);
   }
 
-  public async ngOnInit() {
+  public ngOnInit(): void {
     this.switchESP({value: this.espChosenName});
 
   }

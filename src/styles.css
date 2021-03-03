@@ -55,6 +55,7 @@ body {
   background: green;
   height: 30px;
   border-radius: 5px;
+  max-height: 100% !important;
 }
 
 .navItemIcon {
@@ -64,7 +65,7 @@ body {
 }
 
 .navItemContainer {
-  margin: 15px 0 15px 15px;
+  margin: 15px 0 25px 15px;
   display: flex;
   flex-direction: row;
   align-items: center;

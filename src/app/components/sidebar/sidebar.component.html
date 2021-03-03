@@ -3,11 +3,13 @@
     <img style="" src="assets/img/Sleafy_logo_3000x.png" width="100px">
   </div>
   <mat-nav-list>
-    <mat-list-item fxLayout="row" class="item-list" *ngFor="let item of sideItems" [routerLink]="item.path">
-      <div>
-        <fa-icon class="icon" size="2x" [icon]="item.icon"></fa-icon>
-        <span>{{ item.name }}</span>
+    <div class="navItemContainer" *ngFor="let item of sideItems" [routerLink]="item.path">
+      <div style="display: flex; flex-direction: row; align-items: center;">
+        <fa-icon class="icon" style="width: 35px;" size="2x" [icon]="item.icon"></fa-icon>
+        <span style="margin-left: 5px; width: 130px;">{{ item.name }}</span>
       </div>
-    </mat-list-item>
+      <div class="navItemSelector" [routerLinkActive]="'navItemSelectorActive '">
+      </div>
+    </div>
   </mat-nav-list>
 </div>

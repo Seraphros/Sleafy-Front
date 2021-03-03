@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import {faBars, faInfo, faPlusCircle, faTachometerAlt, faObjectGroup, faSearchPlus, faMinusCircle} from '@fortawesome/free-solid-svg-icons';
+import {faPlusCircle, faTachometerAlt} from '@fortawesome/free-solid-svg-icons';
 
 @Component({
   selector: 'app-sidebar',
@@ -11,14 +11,14 @@ export class SidebarComponent implements OnInit {
 
   sideItems = [
     {
-      icon : faPlusCircle,
-      name: 'ESP Manager',
-      path: '/espdeclaration',
-    },
-    {
       icon : faTachometerAlt,
       name: 'Dashboard',
       path: '/dashboard',
+    },
+    {
+      icon : faPlusCircle,
+      name: 'ESP Manager',
+      path: '/espdeclaration',
     }
   ];
 
