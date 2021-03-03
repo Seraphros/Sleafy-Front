@@ -1,0 +1,42 @@
+<div fxLayout="column" fxLayoutAlign="space-between">
+  <div class="group">
+    <h6>Esp Name</h6>
+    <input id="name" class="field" type="text" pInputText placeholder="Name of this ESP" [(ngModel)]="esp.name">
+  </div>
+  <div class="group" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h6>Humidity Sensor</h6>
+      <p-inputSwitch [(ngModel)]="esp.humiditySensor"></p-inputSwitch>
+    </div>
+    <div>
+      <h6>Heat Sensor</h6>
+      <p-inputSwitch [(ngModel)]="esp.heatSensor"></p-inputSwitch>
+    </div>
+    <div>
+      <h6>Hygrometry</h6>
+      <p-inputSwitch [(ngModel)]="esp.hygrometry"></p-inputSwitch>
+    </div>
+    <div>
+      <h6>Watering</h6>
+      <p-inputSwitch [(ngModel)]="esp.watering"></p-inputSwitch>
+    </div>
+  </div>
+  <div class="group" fxLayout="row" fxLayoutAlign="space-between">
+    <div>
+      <h6>Watering Frequency</h6>
+      <p-inputNumber [(ngModel)]="esp.wateringFrequency" [showButtons]="true" mode="decimal" [min]="0" [max]="100"></p-inputNumber>
+    </div>
+    <div>
+      <h6>Watering Duration</h6>
+      <p-inputNumber [(ngModel)]="esp.wateringDuration" [showButtons]="true" mode="decimal" [min]="0" [max]="100"></p-inputNumber>
+    </div>
+  </div>
+  <div class="group">
+    <h6>Sleep duration</h6>
+    <p-inputNumber [(ngModel)]="esp.sleepTime" [showButtons]="true" mode="decimal" [min]="0" [max]="60"></p-inputNumber>
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between" class="buttons-bar group">
+  <button mat-raised-button color="accent" (click)="closeEmpty()">Close</button>
+  <button mat-raised-button color="primary" (click)="closeDialog(esp)">Save</button>
+</div>

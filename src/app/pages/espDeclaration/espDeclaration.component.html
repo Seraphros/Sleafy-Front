@@ -1,65 +1,102 @@
-<mat-drawer-container class="example-container" style="height: 100%; font-family: 'MyriadPro',sans-serif"
-                      [hasBackdrop]="false">
-  <mat-drawer #drawer [mode]="'side'" opened>
-    <div style="display: flex; flex-direction: column;">
-      <div style="margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center">
-        <img style="" src="assets/img/Sleafy_logo_3000x.png" width="100px">
-      </div>
-      <div class="navItemContainer" [routerLink]="['/dashboard']">
-        <div style="display: flex; flex-direction: row; align-items: center">
-          <fa-icon class="navItemIcon" size="2x" [icon]="faDashboard"></fa-icon>
-          <div>
-            Dashboard
-          </div>
-        </div>
-        <div class="navItemSelector">
-
-        </div>
-      </div>
-      <div class="navItemContainer">
-        <div style="display: flex; flex-direction: row; align-items: center">
-          <fa-icon class="navItemIcon" size="2x" [icon]="faPlus"></fa-icon>
-          <div style="padding-right: 20px;">
-            Déclaration d'un ESP
-          </div>
-        </div>
-        <div class="navItemSelectorActive">
-        </div>
-      </div>
+<p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
+<p-dialog header="{{returnObject.title}}" [(visible)]="returnObject.display">
+  <p>{{returnObject.message}}</p>
+  <p>Secret Key : {{returnObject.secretKey}}</p>
+  <p>UUID : {{returnObject.uuid}}</p>
+</p-dialog>
+<div class="content" style="margin-top: 10px;" >
+  <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between center" >
+    <div>
+      <button mat-raised-button color="primary" (click)="newEspDialog()">Add new ESP</button>
+      <button class="action-button" *ngIf="espSelected" mat-raised-button color="accent" (click)="updateEspDialog()">Update Esp</button>
+      <button class="action-button" *ngIf="espSelected" mat-raised-button color="warn" (click)="deleteEsp()">Delete Esp</button>
     </div>
-  </mat-drawer>
-  <mat-drawer-content style="background: #ebebeb">
-    <div style="height: 100%; background: #ebebeb; padding: 20px;">
-      <div
-        style="display: flex; justify-content: space-between; align-items: center; width: 100%; height: 60px;">
-        <div style="display: flex; align-items: center; justify-content: center;">
-          <fa-stack size="lg" class="navIcon" (click)="drawer.toggle()">
-            <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
-            <fa-icon [icon]="faBars" [inverse]="true" stackItemSize="1x"></fa-icon>
-          </fa-stack>
-          <div style="margin-left: 10px; font-size: 20px;">
-            Déclaration d'un nouvel ESP
-          </div>
-        </div>
-        <div style="margin-right: 30px; color: #595959; font-weight: 300;">
-          {{ date | date:'dd MMMM yyy, EEEE' : '' : 'fr-FR'}}
-        </div>
-      </div>
-      <div style="margin-top: 10px;">
-        Rentrez les informations concernant le nouvel ESP :
-      </div>
-      <div class="card" style="padding: 30px;">
-        <mat-form-field class="example-full-width">
-          <mat-label>Nom de l'ESP :</mat-label>
-          <input matInput placeholder="Ex. Salade" value="">
-        </mat-form-field>
-        <div>
-          <button mat-raised-button color="primary">Envoyer</button>
-        </div>
-      </div>
+    <div *ngIf="espSelected">
+      <button class="action-button"  mat-raised-button color="warn" (click)="resetSecret()">Reset Secret Key</button>
     </div>
+  </div>
+  <p-table styleClass="p-datatable-gridlines" selectionMode="single" [resizableColumns]="true" [value]="esp" [(selection)]="espSelected">
+    <ng-template pTemplate="header">
+      <tr>
+        <th style="text-align: center" pResizableColumn pSortableColumn="id">Id<p-sortIcon field="id"></p-sortIcon></th>
+        <th style="text-align: center" pResizableColumn>
+          Uuid</th>
+        <th style="text-align: center" pResizableColumn>Name
+          <p-columnFilter type="text" field="name" display="menu"></p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn>Humidity Sensor
+          <p-columnFilter field="humiditySensor" matchMode="equals" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn>Heat Sensor
+          <p-columnFilter field="heatSensor" matchMode="equals" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn>Hygrometry
+          <p-columnFilter field="hygrometry" matchMode="equals" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn>Watering
+          <p-columnFilter field="watering" matchMode="equals" [showMatchModes]="false" [showOperator]="false" [showAddButton]="false" display="menu">
+            <ng-template pTemplate="filter" let-value let-filter="filterCallback">
+              <p-dropdown [ngModel]="value" [options]="statuses" (onChange)="filter($event.value)" placeholder="Any">
+                <ng-template let-option pTemplate="item">
+                  <span [class]="'badge status-' + option.value">{{option.label}}</span>
+                </ng-template>
+              </p-dropdown>
+            </ng-template>
+          </p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn pSortableColumn="wateringFrequency">
+          Frequency
+          <p-sortIcon field="wateringFrequency"></p-sortIcon>
+          <p-columnFilter type="numeric" field="wateringFrequency" display="menu"></p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn pSortableColumn="wateringDuration">
+          Duration
+          <p-sortIcon field="wateringDuration"></p-sortIcon>
+          <p-columnFilter type="numeric" field="wateringDuration" display="menu"></p-columnFilter></th>
+        <th style="text-align: center" pResizableColumn pSortableColumn="sleepTime">
+          Sleep Time
+          <p-sortIcon field="sleepTime"></p-sortIcon>
+          <p-columnFilter type="numeric" field="sleepTime" display="menu"></p-columnFilter></th>
+      </tr>
+    </ng-template>
+    <ng-template pTemplate="body" let-esp>
+      <tr [pSelectableRow]="esp">
+        <td style="text-align: center">{{esp.id}}</td>
+        <td style="text-align: center">{{esp.uuid}}</td>
+        <td style="text-align: center">{{esp.name}}</td>
+        <td style="text-align: center">
+          <span [class]="'badge status-'+esp.humiditySensor ">{{esp.humiditySensor === true ? 'Yes': 'No'}}</span></td>
+        <td style="text-align: center">
+          <span [class]="'badge status-'+esp.heatSensor ">{{esp.heatSensor === true ? 'Yes': 'No' }}</span></td>
+        <td style="text-align: center">
+          <span [class]="'badge status-'+esp.hygrometry ">{{esp.hygrometry === true ? 'Yes' : 'No'}}</span></td>
+        <td style="text-align: center">
+          <span [class]="'badge status-'+esp.watering ">{{esp.watering === true ? 'Yes': 'No'}}</span>
+        </td>
+        <td style="text-align: center">{{esp.wateringFrequency}}</td>
+        <td style="text-align: center">{{esp.wateringDuration}}</td>
+        <td style="text-align: center">{{esp.sleepTime}}</td>
+      </tr>
+    </ng-template>
+  </p-table>
+</div>
 
-
-  </mat-drawer-content>
-</mat-drawer-container>
 

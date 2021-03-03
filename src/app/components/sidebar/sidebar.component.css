@@ -1,0 +1,47 @@
+.icon {
+  color: green;
+  margin-right: 10px;
+  size: 35px;
+
+}
+.spacer {
+  flex: 1 1 auto;
+}
+
+.active{
+  background-color: green;
+}
+.referential {
+  height: 100%;
+}
+
+.item-list {
+  margin-bottom: 10px;
+}
+
+.inner-item-list {
+  display: flex;
+  align-items: center;
+  width: 175px;
+}
+
+.navItemContainer:hover .navItemSelector {
+  max-height: 30px;
+  transition: max-height 0.10s ease-in;
+}
+
+.navItemSelector {
+  max-height: 0;
+  transition: max-height 0.05s ease-out;
+  width: 4px;
+  background: green;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.navItemSelectorActive {
+  width: 4px;
+  background: green;
+  height: 30px;
+  border-radius: 5px;
+}

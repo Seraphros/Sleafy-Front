@@ -1,1 +1,37 @@
+.content {
+  background: white;
+  margin: 10px;
+}
 
+.action-bar{
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+
+.action-button {
+  margin-left: 10px;
+}
+
+
+.status-true{
+  background-color: #c8e6c9;
+  color: #256029;
+}
+
+.status-false{
+  background-color: #ffcdd2;
+  color: #c63737;
+}
+
+.badge {
+  border-radius: 2px;
+  padding: .25em .5rem;
+  text-transform: uppercase;
+  font-weight: 700;
+  font-size: 12px;
+  letter-spacing: .3px;
+}
+
+.align-center-value {
+  text-align: center;
+}

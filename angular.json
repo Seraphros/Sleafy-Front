@@ -123,5 +123,8 @@
       }
     }
   },
-  "defaultProject": "Sleafy-Front"
+  "defaultProject": "Sleafy-Front",
+  "cli": {
+    "analytics": "31d61ac2-e917-4335-8b7c-a1afe783d798"
+  }
 }

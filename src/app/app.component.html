@@ -1,3 +1,23 @@
-<section style="height: 100%;">
-  <router-outlet></router-outlet>
-</section>
+<mat-drawer-container class="example-container" style="height: 100%">
+  <mat-drawer #sidenav mode="side" opened>
+    <app-sidebar></app-sidebar>
+  </mat-drawer>
+  <mat-drawer-content style="height: 100%">
+    <div style="display: flex; justify-content: space-between; align-items: center; width: 100%; height: 60px; background: #ebebeb; font-family: 'MyriadPro', sans-serif; padding-top: 10px;">
+      <div style="display: flex; align-items: center; justify-content: center; margin-left: 10px;">
+        <fa-stack size="lg" class="navIcon" (click)="sidenav.toggle()">
+          <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+          <fa-icon [icon]="faBars" [inverse]="true" stackItemSize="1x"></fa-icon>
+        </fa-stack>
+        <div style="margin-left: 10px; font-size: 20px;">
+          {{title}}
+        </div>
+      </div>
+      <div style="margin-right: 30px; color: #595959; font-weight: 300;">
+        {{ date | date:'dd MMMM yyy, EEEE' : '' : 'fr-FR'}}
+      </div>
+    </div>
+    <router-outlet style="height: 100%; background-color: #595959"
+                   (activate)="onRouterOutletActivate($event)"></router-outlet>
+  </mat-drawer-content>
+</mat-drawer-container>
