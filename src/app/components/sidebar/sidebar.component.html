@@ -1,15 +1,22 @@
-<div fxLayout="column">
-  <div style="margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center">
-    <img style="" src="assets/img/Sleafy_logo_3000x.png" width="100px">
-  </div>
-  <mat-nav-list>
-    <div class="navItemContainer" *ngFor="let item of sideItems" [routerLink]="item.path">
-      <div style="display: flex; flex-direction: row; align-items: center;">
-        <fa-icon class="icon" style="width: 35px;" size="2x" [icon]="item.icon"></fa-icon>
-        <span style="margin-left: 5px; width: 130px;">{{ item.name }}</span>
-      </div>
-      <div class="navItemSelector" [routerLinkActive]="'navItemSelectorActive '">
-      </div>
+<div fxLayout="column" fxLayoutAlign="space-between" class="sidebar">
+  <div>
+    <div style="margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center">
+      <img style="" src="assets/img/Sleafy_logo_3000x.png" width="100px">
     </div>
-  </mat-nav-list>
+    <mat-nav-list>
+      <div class="navItemContainer" *ngFor="let item of sideItems" [routerLink]="item.path">
+        <div style="display: flex; flex-direction: row; align-items: center;">
+          <fa-icon class="icon" style="width: 35px;" size="2x" [icon]="item.icon"></fa-icon>
+          <span style="margin-left: 5px; width: 130px;">{{ item.name }}</span>
+        </div>
+        <div class="navItemSelector" [routerLinkActive]="'navItemSelectorActive '">
+        </div>
+      </div>
+    </mat-nav-list>
+  </div>
+  <div class="deconnexion-div">
+    <div style="width: 100%; text-align: center">
+      <button  mat-raised-button color="warn" (click)="logout()">Deconnexion</button>
+    </div>
+  </div>
 </div>
