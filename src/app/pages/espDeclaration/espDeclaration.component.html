@@ -1,8 +1,17 @@
 <p-confirmDialog header="Confirmation" icon="pi pi-exclamation-triangle"></p-confirmDialog>
-<p-dialog header="{{returnObject.title}}" [(visible)]="returnObject.display">
-  <p>{{returnObject.message}}</p>
-  <p>Secret Key : {{returnObject.secretKey}}</p>
-  <p>UUID : {{returnObject.uuid}}</p>
+<p-dialog [(visible)]="returnObject.display">
+  <ng-template pTemplate="header">
+    <h4 style="font-weight: bold">{{returnObject.title}}</h4>
+  </ng-template>
+  <div style="height: 100%">
+    <div style="width: 100%; text-align: center; font-size: 20px; font-weight: bold; margin-bottom: 20px; color: #a40909"><fa-icon class="icon" style="width: 20px; margin-right: 10px" size="2x" [icon]="faExclamationTriangle"></fa-icon>Please note informations below !</div>
+    <div style="margin-bottom: 20px">Secret Key : {{returnObject.secretKey}}</div>
+    <div>UUID : {{returnObject.uuid}}</div>
+  </div>
+  <p-footer fxLayout="row" fxLayoutAlign="space-between">
+    <button mat-raised-button color="primary" ngxClipboard [cbContent]="returnObject.uuid"  autofocus>Copy UUID</button>
+    <button mat-raised-button color="accent" ngxClipboard [cbContent]="returnObject.secretKey" autofocus>Copy Secret Key</button>
+  </p-footer>
 </p-dialog>
 <div class="content" style="margin-top: 10px;" >
   <div class="action-bar" fxLayout="row" fxLayoutAlign="space-between center" >

@@ -35,6 +35,7 @@ import {ConfirmDialogModule} from 'primeng/confirmdialog';
 import {DropdownModule} from 'primeng/dropdown';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {InputNumberModule} from 'primeng/inputnumber';
+import { ClipboardModule } from 'ngx-clipboard';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -88,7 +89,9 @@ function initializeKeycloak(keycloak: KeycloakService) {
         ConfirmDialogModule,
         DropdownModule,
         InputSwitchModule,
-        InputNumberModule
+        InputNumberModule,
+        ClipboardModule
+
     ],
   providers: [
     {

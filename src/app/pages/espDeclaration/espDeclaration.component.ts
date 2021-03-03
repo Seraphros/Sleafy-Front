@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {faBars, faPlusCircle, faTachometerAlt} from '@fortawesome/free-solid-svg-icons';
+import {faBars, faPlusCircle, faTachometerAlt, faExclamationTriangle} from '@fortawesome/free-solid-svg-icons';
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import {Esp} from "../../models/esp";
 import {DialogBoxComponent} from '../../components/dialog-box/dialog-box.component';
@@ -20,6 +20,7 @@ export class EspDeclarationComponent implements OnInit {
   faCircle = faCircle;
   faDashboard = faTachometerAlt;
   faPlus = faPlusCircle;
+  faExclamationTriangle = faExclamationTriangle;
 
   date = new Date();
   esp: Esp[] = [];
@@ -34,10 +35,10 @@ export class EspDeclarationComponent implements OnInit {
     title: 'Esp ADD',
     message: 'The asp has been created',
     display: false,
-    uuid: '',
-    secretKey: ''
+    uuid: '9ba48ac8-99d-9ba48ac8-99d',
+    secretKey: '9ba48ac8-99d-9ba48ac8-99d-9ba48ac8-99d'
   };
-  constructor(private confirmationService: ConfirmationService, private dialogService: DialogService, private espService: EspService) {
+  constructor( private confirmationService: ConfirmationService, private dialogService: DialogService, private espService: EspService) {
   }
 
   public ngOnInit(): void {
