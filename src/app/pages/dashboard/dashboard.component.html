@@ -1,4 +1,4 @@
-<div style="height: 100%; background: #ebebeb; padding: 10px;">
+<div style="height: 100%; background: #ebebeb; padding: 10px;" *ngIf="espChosen">
   <div style="margin-top: 20px; display: flex; justify-content: space-between; align-items: center">
     <mat-button-toggle-group [(value)]="espChosenName" name="ESPs" aria-label="ESPs">
       <mat-button-toggle *ngFor="let esp of ESPs" value="{{esp.name}}"
@@ -33,11 +33,10 @@
                        value="{{filters[filter].name}}">{{filters[filter].name}} </mat-button-toggle>
   </mat-button-toggle-group>
 
-  <div style="display: flex;flex-flow: wrap;">
+  <div style="display: flex;flex-flow: wrap;background: #ebebeb; width: 100%;">
     <div class="card" style="width: 300px; min-width: 230px; margin-right: 20px;"
-         [ngClass]="isCardCollapsedOrNotDisplayed('values')"
-         (click)="expandTable['values']=!expandTable['values']">
-      <div class="card-title" style="justify-content: space-between">
+         [ngClass]="isCardCollapsedOrNotDisplayed('values')">
+      <div class="card-title" style="justify-content: space-between" (click)="expandTable['values']=!expandTable['values']">
         <div style="display: flex; align-items: center;">
           <fa-stack>
             <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
@@ -59,29 +58,41 @@
           style="width: 100%; background: #227d1b; color: white; font-size: 20px; display: flex; padding: 5px; justify-content: center;">
           Humidité :
         </div>
-        <div style="display: flex; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
-          {{espChosen.currentHumidity}}
+        <div
+          style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
+          <div>
+            {{humidityLastValue}}
+          </div>
+          <div style="font-size: 10px; text-transform: capitalize;">
+            {{humidityLastValueTime | date:'dd LLL yyy, HH:mm' : '' : 'fr-FR'}}
+          </div>
         </div>
         <div
           style="width: 100%; font-size: 20px; display: flex; background: #227d1b; color: white; padding: 5px; justify-content: center;">
           Température :
+
         </div>
-        <div style="display: flex; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
-          {{espChosen.currentTemperature}}
+        <div
+          style="display: flex; flex-direction: column; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
+          <div>
+            {{temperatureLastValue}}
+          </div>
+          <div style="font-size: 10px; text-transform: capitalize;">
+            {{temperatureLastValueTime | date:'dd LLL yyy, HH:mm' : '' : 'fr-FR'}}
+          </div>
         </div>
         <div
           style="width: 100%; font-size: 20px; display: flex; background: #227d1b; color: white; padding: 5px; justify-content: center;">
           Dernier Arrosage :
         </div>
         <div style="display: flex; justify-content: center; align-items: center; padding: 20px; font-size: 30px;">
-          {{espChosen.lastWatering}}
+          Pas de donnée
         </div>
       </div>
     </div>
     <div class="card" style="width: 210px; min-width: 210px; margin-right: 20px;"
-         [ngClass]="isCardCollapsedOrNotDisplayed('meteo')"
-         (click)="expandTable['meteo']=!expandTable['meteo']">
-      <div class="card-title" style="justify-content: space-between">
+         [ngClass]="isCardCollapsedOrNotDisplayed('meteo')">
+      <div class="card-title" style="justify-content: space-between" (click)="expandTable['meteo']=!expandTable['meteo']">
         <div style="display: flex; align-items: center;">
           <fa-stack>
             <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
@@ -101,9 +112,8 @@
       </div>
     </div>
     <div class="card" style="width: 900px; min-width: 400px; margin-right: 20px;"
-         [ngClass]="isCardCollapsedOrNotDisplayed('humidity')"
-         (click)="expandTable['humidity']=!expandTable['humidity']">
-      <div class="card-title" style="justify-content: space-between">
+         [ngClass]="isCardCollapsedOrNotDisplayed('humidity')">
+      <div class="card-title" style="justify-content: space-between" (click)="expandTable['humidity']=!expandTable['humidity']">
         <div style="display: flex; align-items: center;">
 
           <fa-stack>
@@ -124,9 +134,8 @@
       </div>
     </div>
     <div class="card" style="width: 900px; min-width: 500px;"
-         [ngClass]="isCardCollapsedOrNotDisplayed('temperature')"
-         (click)="expandTable['temperature']=!expandTable['temperature']">
-      <div class="card-title" style="justify-content: space-between">
+         [ngClass]="isCardCollapsedOrNotDisplayed('temperature')">
+      <div class="card-title" style="justify-content: space-between" (click)="expandTable['temperature']=!expandTable['temperature']">
         <div style="display: flex; align-items: center;">
           <fa-stack>
             <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>

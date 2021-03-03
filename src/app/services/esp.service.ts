@@ -1,15 +1,15 @@
-import { Injectable } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
-import {Observable} from "rxjs";
-import {Esp} from "../models/esp";
+import {Injectable} from '@angular/core';
+import {HttpClient} from '@angular/common/http';
+import {Observable} from 'rxjs';
+import {Esp} from '../models/esp';
 
 @Injectable({
   providedIn: 'root'
 })
 export class EspService {
 
-  constructor(private http: HttpClient) { }
-
+  constructor(private http: HttpClient) {
+  }
 
   public getEsp(): Observable<Esp[]> {
     return this.http.get<Esp[]>('https://www.sleafy.fr/back/esp');
@@ -20,14 +20,22 @@ export class EspService {
   }
 
   public updateEsp(esp: Esp): Observable<any> {
-    return this.http.put( 'https://www.sleafy.fr/back/esp', esp);
+    return this.http.put('https://www.sleafy.fr/back/esp', esp);
   }
 
   public deleteEsp(espId: number): Observable<any> {
-    return this.http.delete( 'https://www.sleafy.fr/back/esp/' + espId);
+    return this.http.delete('https://www.sleafy.fr/back/esp/' + espId);
   }
 
   public resetSecretKey(espId: number): Observable<any> {
-    return this.http.put( 'https://www.sleafy.fr/back/esp/' + espId + '/reset', null);
+    return this.http.put('https://www.sleafy.fr/back/esp/' + espId + '/reset', null);
+  }
+
+  public retrieveEspHumidity(espId: number, numberOfResults: number): Observable<any> {
+    return this.http.get('https://www.sleafy.fr/back/humidity/readings/' + espId + '?size=' + numberOfResults);
+  }
+
+  public retrieveEspTemperature(espId: number, numberOfResults: number): Observable<any> {
+    return this.http.get('https://www.sleafy.fr/back/temperature/readings/' + espId + '?size=' + numberOfResults);
   }
 }

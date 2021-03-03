@@ -3,6 +3,9 @@ import {faBars, faInfo, faPlusCircle, faTachometerAlt, faObjectGroup, faSearchPl
 import {faCircle} from '@fortawesome/free-solid-svg-icons';
 import {Router} from '@angular/router';
 import {Chart} from 'chart.js';
+import {EspService} from '../../services/esp.service';
+import {Esp} from '../../models/esp';
+import {Reading} from '../../models/reading';
 
 @Component({
   selector: 'app-dashboard',
@@ -25,29 +28,11 @@ export class DashboardComponent implements OnInit {
 
   date = new Date();
 
-  ESPs = [
-    {
-      name: 'Salade',
-      currentHumidity: '60%',
-      currentTemperature: '20°C',
-      pastHumidity: [20, 70, 30, 60, 50],
-      pastTemperature: [20, 20, 19, 16, 20],
-      lastWatering: '26/02 - 16h00',
-    },
-    {
-      name: 'Fraise',
-      currentHumidity: '50%',
-      currentTemperature: '25°C',
-      pastHumidity: [90, 70, 50, 60, 10],
-      pastTemperature: [20, 20, 18, 17, 15],
-      lastWatering: '26/02 - 16h05',
-    }];
+  ESPs: Esp[] = [];
 
-  humidityChart = [];
-  temperatureChart = [];
 
-  espChosenName = this.ESPs[0].name;
-  espChosen = this.ESPs[0];
+  espChosenName;
+  espChosen;
 
   expandTable = {
     humidity: true,
@@ -66,67 +51,150 @@ export class DashboardComponent implements OnInit {
   filtersKey = [];
   filterChosen = 'Global';
 
-  constructor(private router: Router) {
+  humidityChart = [];
+  humidityChartData = {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Humidité de la terre',
+          borderColor: '#3e95cd',
+          fill: false,
+          data: [],
+        }
+      ]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: 'Humidité'
+      },
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            parser: 'MM/DD/YYYY HH:mm',
+            // round: 'day'
+            tooltipFormat: 'll HH:mm'
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Date'
+          }
+        }],
+      }
+    }
+  };
+
+  temperatureChart = [];
+  temperatureChartData = {
+    type: 'line',
+    data: {
+      labels: [],
+      datasets: [
+        {
+          label: 'Temperature de l\'air',
+          borderColor: '#3e95cd',
+          fill: false,
+          data: []
+        }
+      ]
+    },
+    options: {
+      legend: {display: false},
+      title: {
+        display: true,
+        text: 'Temperature'
+      },
+      scales: {
+        xAxes: [{
+          type: 'time',
+          time: {
+            parser: 'MM/DD/YYYY HH:mm',
+            // round: 'day'
+            tooltipFormat: 'll HH:mm'
+          },
+          scaleLabel: {
+            display: true,
+            labelString: 'Date'
+          }
+        }],
+      },
+    }
+  };
+
+  temperatureLastValue = 'Pas de donnée';
+  temperatureLastValueTime = '';
+  humidityLastValue = 'Pas de donnée';
+  humidityLastValueTime = '';
+
+
+  constructor(private router: Router,
+              private espService: EspService) {
     this.filtersKey = Object.keys(this.filters);
   }
 
   public ngOnInit(): void {
-    this.switchESP({value: this.espChosenName});
-
+    this.espService.getEsp().subscribe(data => {
+      this.ESPs = data;
+      this.espChosenName = this.ESPs[0].name;
+      this.espChosen = this.ESPs[0];
+      this.switchESP({value: this.espChosenName});
+    });
   }
 
   public switchESP(item): void {
     this.ESPs.forEach(esp => {
       if (esp.name === item.value) {
         this.espChosen = esp;
-      }
-    });
-
-    this.humidityChart = new Chart('humidityChart', {
-      type: 'line',
-      data: {
-        labels: ['12h00', '13h00', '14h00', '15h00', '16h00'],
-        datasets: [
-          {
-            label: 'Humidité de la terre',
-            borderColor: '#3e95cd',
-            fill: false,
-            data: this.espChosen.pastHumidity
+        this.espService.retrieveEspHumidity(esp.id, 20).subscribe(dataHumidity => {
+          const humidityValue = [];
+          const humidityTime = [];
+          const dataReadHumidity: Reading[] = dataHumidity;
+          if (dataReadHumidity != null) {
+            dataReadHumidity.forEach(reading => {
+              humidityValue.push(reading.value);
+              humidityTime.push(new Date(reading.time));
+            });
+            this.humidityLastValue = dataReadHumidity[0].value + ' %';
+            this.humidityLastValueTime =  '' + dataReadHumidity[0].time;
+            this.humidityChartData.data.datasets[0].data = humidityValue;
+            this.humidityChartData.data.labels = humidityTime;
+            this.humidityChart = new Chart('humidityChart', this.humidityChartData);
+          } else {
+            this.humidityLastValue = 'Pas de donnée';
+            this.humidityLastValueTime = '';
+            this.humidityChartData.data.datasets[0].data = [];
+            this.humidityChartData.data.labels = [];
+            this.humidityChart = new Chart('humidityChart', this.humidityChartData);
           }
-        ]
-      },
-      options: {
-        legend: {display: false},
-        title: {
-          display: true,
-          text: 'Humidité'
-        }
-      }
-    });
-
-    this.temperatureChart = new Chart('temperatureChart', {
-      type: 'line',
-      data: {
-        labels: ['12h00', '13h00', '14h00', '15h00', '16h00'],
-        datasets: [
-          {
-            label: 'Temperature de l\'air',
-            borderColor: '#3e95cd',
-            fill: false,
-            data: this.espChosen.pastTemperature
+        });
+        this.espService.retrieveEspTemperature(esp.id, 20).subscribe(dataTemperature => {
+          const temperatureValue = [];
+          const temperatureTime = [];
+          const dataReadTemperature: Reading[] = dataTemperature;
+          if (dataReadTemperature != null) {
+            dataReadTemperature.forEach(reading => {
+              temperatureValue.push(reading.value);
+              temperatureTime.push(new Date(reading.time));
+            });
+            this.temperatureLastValue = dataReadTemperature[0].value + ' °C';
+            this.temperatureLastValueTime = '' + dataReadTemperature[0].time;
+            this.temperatureChartData.data.datasets[0].data = temperatureValue;
+            this.temperatureChartData.data.labels = temperatureTime;
+            this.temperatureChart = new Chart('temperatureChart', this.temperatureChartData);
+          } else {
+            this.temperatureLastValue = 'Pas de donnée';
+            this.temperatureLastValueTime = '';
+            this.temperatureChartData.data.datasets[0].data = [];
+            this.temperatureChartData.data.labels = [];
+            this.temperatureChart = new Chart('temperatureChart', this.temperatureChartData);
           }
-        ]
-      },
-      options: {
-        legend: {display: false},
-        title: {
-          display: true,
-          text: 'Temperature'
-        }
+        });
       }
     });
-
-    console.log(this.espChosen);
   }
 
   public isCardCollapsedOrNotDisplayed(card): string[] {

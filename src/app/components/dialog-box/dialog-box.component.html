@@ -24,16 +24,16 @@
   <div class="group" fxLayout="row" fxLayoutAlign="space-between">
     <div>
       <h6>Watering Frequency</h6>
-      <p-inputNumber [(ngModel)]="esp.wateringFrequency" [showButtons]="true" mode="decimal" [min]="0" [max]="100"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="esp.wateringFrequency" [showButtons]="true" mode="decimal" [min]="0"></p-inputNumber>
     </div>
     <div>
       <h6>Watering Duration</h6>
-      <p-inputNumber [(ngModel)]="esp.wateringDuration" [showButtons]="true" mode="decimal" [min]="0" [max]="100"></p-inputNumber>
+      <p-inputNumber [(ngModel)]="esp.wateringDuration" [showButtons]="true" mode="decimal" [min]="0"></p-inputNumber>
     </div>
   </div>
   <div class="group">
     <h6>Sleep duration</h6>
-    <p-inputNumber [(ngModel)]="esp.sleepTime" [showButtons]="true" mode="decimal" [min]="0" [max]="60"></p-inputNumber>
+    <p-inputNumber [(ngModel)]="esp.sleepTime" [showButtons]="true" mode="decimal" [min]="0"></p-inputNumber>
   </div>
 </div>
 <div fxLayout="row" fxLayoutAlign="space-between" class="buttons-bar group">
