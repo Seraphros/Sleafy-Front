@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {faPlusCircle, faTachometerAlt} from '@fortawesome/free-solid-svg-icons';
+import {KeycloakService} from 'keycloak-angular';
 
 @Component({
   selector: 'app-sidebar',
@@ -22,9 +23,13 @@ export class SidebarComponent implements OnInit {
     }
   ];
 
-  constructor() { }
+  constructor(private readonly keycloak: KeycloakService) { }
 
   ngOnInit(): void {
+  }
+
+  logout(): void {
+    this.keycloak.logout();
   }
 
 }

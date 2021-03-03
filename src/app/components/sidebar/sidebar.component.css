@@ -45,3 +45,12 @@
   height: 30px;
   border-radius: 5px;
 }
+
+
+.sidebar {
+  height: 100%;
+}
+
+.deconnexion-div {
+  margin-bottom: 20px;
+}
