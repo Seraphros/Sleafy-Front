@@ -1,4 +1,117 @@
 /* You can add global styles to this file, and also import other style files */
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html, body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+@font-face {
+  font-family: "MyriadPro";
+  src: url("/assets/font/MYRIADPRO-REGULAR.OTF") format("opentype");
+}
+
+.sideTab:hover {
+  background: #9eabb0;
+}
+
+.sideTabActual {
+  background: #6A757A;
+}
+
+.navIcon:hover {
+  color: black;
+  transition: color 0.20s ease-out;
+}
+
+.navIcon {
+  color: green;
+  transition: color 0.20s ease-in;
+}
+
+.navItemContainer:hover .navItemSelector {
+  max-height: 30px;
+  transition: max-height 0.10s ease-in;
+}
+
+.navItemSelector {
+  max-height: 0;
+  transition: max-height 0.05s ease-out;
+  width: 4px;
+  background: green;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.navItemSelectorActive {
+  width: 4px;
+  background: green;
+  height: 30px;
+  border-radius: 5px;
+}
+
+.navItemIcon {
+  margin-right: 20px;
+  color: green;
+  width: 35px;
+}
+
+.navItemContainer {
+  margin: 15px 0 15px 15px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-family: 'MyriadPro', sans-serif;
+}
+
+.card {
+  background: white;
+  width: 100%;
+  border-radius: 10px;
+  margin-top: 20px;
+  max-height: 2000px;
+  transition: max-height 0.25s linear;
+}
+
+.cardCollapsed {
+  max-height: 56px;
+  overflow: hidden;
+  transition: max-height 0.25s linear;
+}
+
+.card-hidden {
+  display: none;
+}
+
+.card-title {
+  background: #138625;
+  color: white;
+  padding: 10px;
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.card-title:hover {
+  background: green;
+}
+
+.mat-form-field.mat-focused .mat-form-field-label {
+  color: green !important;
+}
+
+.mat-form-field.mat-focused .mat-form-field-ripple {
+  background-color: green !important;
+  color: green !important;
+}
+
+.mat-raised-button.mat-primary {
+  background-color: green;
+}

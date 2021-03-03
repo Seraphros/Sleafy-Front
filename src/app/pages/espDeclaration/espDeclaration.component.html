@@ -1,0 +1,65 @@
+<mat-drawer-container class="example-container" style="height: 100%; font-family: 'MyriadPro',sans-serif"
+                      [hasBackdrop]="false">
+  <mat-drawer #drawer [mode]="'side'" opened>
+    <div style="display: flex; flex-direction: column;">
+      <div style="margin-top: 20px; margin-bottom: 20px; display: flex; flex-direction: column; align-items: center">
+        <img style="" src="assets/img/Sleafy_logo_3000x.png" width="100px">
+      </div>
+      <div class="navItemContainer" [routerLink]="['/dashboard']">
+        <div style="display: flex; flex-direction: row; align-items: center">
+          <fa-icon class="navItemIcon" size="2x" [icon]="faDashboard"></fa-icon>
+          <div>
+            Dashboard
+          </div>
+        </div>
+        <div class="navItemSelector">
+
+        </div>
+      </div>
+      <div class="navItemContainer">
+        <div style="display: flex; flex-direction: row; align-items: center">
+          <fa-icon class="navItemIcon" size="2x" [icon]="faPlus"></fa-icon>
+          <div style="padding-right: 20px;">
+            Déclaration d'un ESP
+          </div>
+        </div>
+        <div class="navItemSelectorActive">
+        </div>
+      </div>
+    </div>
+  </mat-drawer>
+  <mat-drawer-content style="background: #ebebeb">
+    <div style="height: 100%; background: #ebebeb; padding: 20px;">
+      <div
+        style="display: flex; justify-content: space-between; align-items: center; width: 100%; height: 60px;">
+        <div style="display: flex; align-items: center; justify-content: center;">
+          <fa-stack size="lg" class="navIcon" (click)="drawer.toggle()">
+            <fa-icon [icon]="faCircle" stackItemSize="2x"></fa-icon>
+            <fa-icon [icon]="faBars" [inverse]="true" stackItemSize="1x"></fa-icon>
+          </fa-stack>
+          <div style="margin-left: 10px; font-size: 20px;">
+            Déclaration d'un nouvel ESP
+          </div>
+        </div>
+        <div style="margin-right: 30px; color: #595959; font-weight: 300;">
+          {{ date | date:'dd MMMM yyy, EEEE' : '' : 'fr-FR'}}
+        </div>
+      </div>
+      <div style="margin-top: 10px;">
+        Rentrez les informations concernant le nouvel ESP :
+      </div>
+      <div class="card" style="padding: 30px;">
+        <mat-form-field class="example-full-width">
+          <mat-label>Nom de l'ESP :</mat-label>
+          <input matInput placeholder="Ex. Salade" value="">
+        </mat-form-field>
+        <div>
+          <button mat-raised-button color="primary">Envoyer</button>
+        </div>
+      </div>
+    </div>
+
+
+  </mat-drawer-content>
+</mat-drawer-container>
+
