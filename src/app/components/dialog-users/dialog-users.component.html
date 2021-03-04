@@ -1,0 +1,13 @@
+<div>
+  <div class="group">
+    <h6>User Name</h6>
+    <input fxFill id="name" class="field" type="text" pInputText placeholder="Name" disabled [(ngModel)]="user.name">
+  </div>
+  <div class="group">
+    <h6>City</h6>
+    <input fxFill id="city" class="field" type="text" pInputText placeholder="City" [(ngModel)]="user.city">
+  </div>
+</div>
+<div fxLayout="row" fxLayoutAlign="end" class="buttons-bar group">
+  <button mat-raised-button color="primary"  [disabled]="user.city === ''" (click)="addUser()">Save</button>
+</div>
