@@ -1,5 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {faCloud, faMoon, faSun} from '@fortawesome/free-solid-svg-icons';
+import {UserInformationService} from '../../services/user-information.service';
 
 @Component({
   selector: 'app-weather-component',
@@ -12,20 +13,31 @@ export class WeatherComponent implements OnInit {
   facloud = faCloud;
   fasun = faSun;
   famoon = faMoon;
+  city = 'lille';
 
-  constructor() {
+  constructor(private userInformationService: UserInformationService) {
   }
 
-  ngOnInit() {
-    this.WeatherData = {
-      main: {},
-      isDay: true
-    };
-    this.getWeatherData();
+  ngOnInit(): void {
+    this.userInformationService.getUserInformation().subscribe(result => {
+      this.city = result.city;
+      this.WeatherData = {
+        main: {},
+        isDay: true
+      };
+      this.getWeatherData();
+    },
+      error => {
+        this.WeatherData = {
+          main: {},
+          isDay: true
+        };
+        this.getWeatherData();
+      });
   }
 
-  getWeatherData() {
-    fetch('https://api.openweathermap.org/data/2.5/weather?q=ronchin&appid=0b9d1c80b895cc8fe657d7981acdc5c1&lang=fr')
+  getWeatherData(): void {
+    fetch('https://api.openweathermap.org/data/2.5/weather?q=' + this.city + '&appid=0b9d1c80b895cc8fe657d7981acdc5c1&lang=fr')
       .then(response => response.json())
       .then(data => {
         this.setWeatherData(data);

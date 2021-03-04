@@ -36,6 +36,7 @@ import {DropdownModule} from 'primeng/dropdown';
 import {InputSwitchModule} from 'primeng/inputswitch';
 import {InputNumberModule} from 'primeng/inputnumber';
 import { ClipboardModule } from 'ngx-clipboard';
+import { DialogUsersComponent } from './components/dialog-users/dialog-users.component';
 
 registerLocaleData(localeFr, 'fr');
 
@@ -63,6 +64,7 @@ function initializeKeycloak(keycloak: KeycloakService) {
     WeatherComponent,
     SidebarComponent,
     DialogBoxComponent,
+    DialogUsersComponent,
   ],
     imports: [
         AppRoutingModule,
