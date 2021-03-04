@@ -16,7 +16,6 @@ export class AppComponent  {
 
   public onRouterOutletActivate(event: any): void {
     this.title = event.title;
-    console.log(event);
   }
 
 }

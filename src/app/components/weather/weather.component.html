@@ -1,4 +1,4 @@
-<div id="divWeatherMain">
+<div id="divWeatherMain" *ngIf="WeatherData.weather">
   <div *ngIf="WeatherData.isDay" class="weatherWidgetRow">
     <fa-icon [icon]="fasun" size="3x"></fa-icon>
   </div>

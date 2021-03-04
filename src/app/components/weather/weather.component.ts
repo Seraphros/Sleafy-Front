@@ -22,7 +22,6 @@ export class WeatherComponent implements OnInit {
       isDay: true
     };
     this.getWeatherData();
-    console.log(this.WeatherData);
   }
 
   getWeatherData() {
@@ -35,6 +34,8 @@ export class WeatherComponent implements OnInit {
 
   public setWeatherData(data): void {
     this.WeatherData = data;
+    console.log(this.WeatherData);
+
     const sunsetTime = new Date(this.WeatherData.sys.sunset * 1000);
     const currentDate = new Date();
 
