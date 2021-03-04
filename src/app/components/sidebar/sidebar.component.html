@@ -16,7 +16,7 @@
   </div>
   <div class="button-div">
     <div fxLayout="column">
-      <button style="margin-bottom: 10px;margin-right: 20%; margin-left: 20%" mat-raised-button color="primary" (click)="displayUserBox()">{{userName}}</button>
+      <button style="margin-bottom: 10px;margin-right: 20%; margin-left: 20%" mat-stroked-button color="primary" (click)="displayUserBox()">{{userName | uppercase}}</button>
       <button style="margin-right: 20%; margin-left: 20%" mat-raised-button color="warn" (click)="logout()">Deconnexion</button>
     </div>
   </div>
